@@ -5,8 +5,8 @@ from keras.src.models import Model
 from keras.src.optimizers import Adam
 from keras.src.losses import BinaryCrossentropy
 from matplotlib import pyplot as plt
-
 from models import build_discriminator, build_generator
+from monitoring.callback import ModelMonitor
 from utils import scale_images
 
 
@@ -110,10 +110,7 @@ def main():
     )
 
     # Training
-    fashgan.fit(ds, epochs=1)
-
-    # Salvataggio del modello
-    fashgan.save('../fashion_gan.keras')
+    fashgan.fit(ds, epochs=1,callbacks=[ModelMonitor(output_dir="..\\outputs\\training1")])
 
     #visualizzazione di immagini generate
     generated_images = fashgan.generator(tf.random.normal((9, 128, 1)), training=False)
