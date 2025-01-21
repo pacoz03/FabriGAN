@@ -6,9 +6,8 @@ from keras.src.optimizers import Adam
 from keras.src.losses import BinaryCrossentropy
 from matplotlib import pyplot as plt
 
-from dataset.models import build_discriminator, build_generator
-from dataset.utils import scale_images
-from monitoring.callback import ModelMonitor
+from models import build_discriminator, build_generator
+from utils import scale_images
 
 
 class FashionGAN(Model):
@@ -114,7 +113,7 @@ def main():
     fashgan.fit(ds, epochs=1)
 
     # Salvataggio del modello
-    fashgan.save('fashion_gan.keras')
+    fashgan.save('../fashion_gan.keras')
 
     #visualizzazione di immagini generate
     generated_images = fashgan.generator(tf.random.normal((9, 128, 1)), training=False)
@@ -122,8 +121,10 @@ def main():
     fig, ax = plt.subplots(ncols=3, nrows=3, figsize=(10, 10))
     for i in range(3):
         for j in range(3):
-            ax[i, j].imshow(generated_images[i*3+j], cmap='gray')
+            ax[i, j].imshow(generated_images[i*3+j])
             ax[i, j].axis('off')
+
+    plt.show()
 
 
 
