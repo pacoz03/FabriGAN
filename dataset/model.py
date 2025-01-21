@@ -4,16 +4,12 @@ import tensorflow_datasets as tfds
 from keras.src.models import Model
 from keras.src.optimizers import Adam
 from keras.src.losses import BinaryCrossentropy
+from matplotlib import pyplot as plt
+
 from dataset.models import build_discriminator, build_generator
+from dataset.utils import scale_images
 from monitoring.callback import ModelMonitor
 
-def scale_images(data):
-    """
-    Funzione di preprocessing per scalare le immagini da [0,255] a [0,1].
-    """
-    image = data['image']
-    image = tf.cast(image, tf.float32) / 255.0
-    return image
 
 class FashionGAN(Model):
     def __init__(self, generator, discriminator, *args, **kwargs):
@@ -114,15 +110,20 @@ def main():
         d_loss=d_loss
     )
 
-    # Callback di monitoraggio
-    monitor = ModelMonitor(
-        num_img=9,  # numero di immagini generate a ogni step di salvataggio
-        latent_dim=128,  # dimensione del vettore di input al generatore
-        output_dir='outputs'
-    )
-
     # Training
-    fashgan.fit(ds, epochs=1, callbacks=[monitor])
+    fashgan.fit(ds, epochs=1)
+
+    # Salvataggio del modello
+    fashgan.save('fashion_gan.keras')
+
+    #visualizzazione di immagini generate
+    generated_images = fashgan.generator(tf.random.normal((9, 128, 1)), training=False)
+
+    fig, ax = plt.subplots(ncols=3, nrows=3, figsize=(10, 10))
+    for i in range(3):
+        for j in range(3):
+            ax[i, j].imshow(generated_images[i*3+j], cmap='gray')
+            ax[i, j].axis('off')
 
 
 
