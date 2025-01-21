@@ -108,10 +108,9 @@ def main():
         g_loss=g_loss,
         d_loss=d_loss
     )
-
     # Training
     fashgan.fit(ds, epochs=1,callbacks=[ModelMonitor(output_dir="..\\outputs\\training1")])
-
+"""
     #visualizzazione di immagini generate
     generated_images = fashgan.generator(tf.random.normal((9, 128, 1)), training=False)
 
@@ -121,7 +120,7 @@ def main():
             ax[i, j].imshow(generated_images[i*3+j])
             ax[i, j].axis('off')
 
-    plt.show()
+    plt.show()"""
 
 
 

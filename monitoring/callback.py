@@ -48,6 +48,21 @@ class ModelMonitor(Callback):
         if (epoch + 1) % 5 == 0:
             self.save_model(epoch + 1)
 
+    def on_train_end(self, logs=None):
+        """
+        Metodo chiamato a fine training.
+        Salva il modello finale e il plot dei loss.
+        """
+        final_model_path = os.path.join(self.models_dir, 'model_final.keras')
+        self.model.save(final_model_path)
+        print(f"Modello finale salvato in: {final_model_path}")
+
+        # Salva il CSV finale
+        pd.DataFrame(self.losses).to_csv(self.losses_path, index=False)
+
+        # Salva il grafico delle perdite
+        self.save_loss_plot()
+
     def save_model(self, epoch):
         model_path = os.path.join(self.models_dir, f'model_at_epoch_{epoch}.keras')
         self.model.save(model_path)
@@ -78,3 +93,22 @@ class ModelMonitor(Callback):
         plt.close(fig)
 
         print(f"Immagini generate salvate in: {image_path}")
+
+    def save_loss_plot(self):
+        if self.losses:
+            df_losses = pd.DataFrame(self.losses)
+            plt.figure(figsize=(10, 6))
+            plt.suptitle("Loss")
+            plt.plot(df_losses['epoch'], df_losses['discriminator_loss'], label='d_loss')
+            plt.plot(df_losses['epoch'], df_losses['generator_loss'], label='g_loss')
+            plt.xlabel('Epoch')
+            plt.ylabel('Loss')
+            plt.legend()
+            plt.grid(True)
+
+            plot_path = os.path.join(self.output_dir, 'images', 'loss_plot.png')
+
+            plt.savefig(plot_path)
+            plt.close()
+
+            print(f"Grafico delle perdite salvato in: {plot_path}")
