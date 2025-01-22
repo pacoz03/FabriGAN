@@ -3,6 +3,9 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from keras.src.callbacks.callback import Callback
+from dataset import utils
+import glob
+
 class ModelMonitor(Callback):
     def __init__(self,
                  num_img=9,
@@ -62,6 +65,11 @@ class ModelMonitor(Callback):
 
         # Salva il grafico delle perdite
         self.save_loss_plot()
+
+        #Crea gif di tutte le immagini generate
+        utils.crea_gif(glob.glob(os.path.join(self.images_dir, 'generated_at_epoch_*.png')))
+
+
 
     def save_model(self, epoch):
         model_path = os.path.join(self.models_dir, f'model_at_epoch_{epoch}.keras')
