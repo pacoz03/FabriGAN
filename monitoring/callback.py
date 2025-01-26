@@ -1,5 +1,6 @@
 import tensorflow as tf
 import os
+import keras
 import pandas as pd
 import matplotlib.pyplot as plt
 from keras.src.callbacks.callback import Callback
@@ -120,3 +121,12 @@ class ModelMonitor(Callback):
             plt.close()
 
             print(f"Grafico delle perdite salvato in: {plot_path}")
+
+
+def cnn_callback():
+    return keras.callbacks.ModelCheckpoint(
+        filepath='best_model.keras',
+        save_best_only=True,
+        monitor='val_loss',
+        verbose=1
+    )
