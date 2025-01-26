@@ -1,7 +1,7 @@
 
 from keras.src.legacy.preprocessing.image import ImageDataGenerator
 import dataset.dataset as ds
-from dataset.models import build_model
+from model.models import build_model
 from monitoring.callback import cnn_callback
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay

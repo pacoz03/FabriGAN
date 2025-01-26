@@ -4,7 +4,7 @@ from keras.src.models import Model
 from keras.src.optimizers import Adam
 from keras.src.losses import BinaryCrossentropy
 from .models import build_discriminator, build_generator
-from .utils import scale_images, crea_gif
+from dataset.utils import scale_images, crea_gif
 import glob
 import os
 import keras
@@ -167,4 +167,4 @@ def main():
 if __name__ == "__main__":
     #main()
 
-    crea_gif(glob.glob(os.path.join("..\\outputs\\training2\\images", 'generated_at_epoch_*.png')), durata=10)
+    crea_gif(glob.glob(os.path.join("../outputs/training2/images", 'generated_at_epoch_*.png')), durata=10)

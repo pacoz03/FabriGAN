@@ -4,7 +4,7 @@ import tensorflow as tf
 from keras.src.saving import load_model
 import keras
 
-from dataset.model import FashionGAN
+from model.model import FashionGAN
 
 
 def calculate_fid(real_images, generated_images):
