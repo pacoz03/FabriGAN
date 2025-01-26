@@ -53,7 +53,7 @@ def train_cnn():
 
 
 
-def stats(history):
+def metrics(history):
     # Grafico dell'accuratezza
     plt.plot(history.history['accuracy'], label='Accuratezza Training')
     plt.plot(history.history['val_accuracy'], label='Accuratezza Validazione')
