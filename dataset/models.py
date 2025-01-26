@@ -101,3 +101,40 @@ def build_model():
                   metrics=['accuracy'])
 
     return model
+
+
+def cgan_discriminator():
+    """
+    Costruisce la rete discriminante.
+    """
+    model = Sequential()
+
+    model.add(Input(shape=(28, 28, 1)))  # Definisci l'input shape all'inizio
+
+
+    # Primo blocco di convoluzione
+    model.add(Conv2D(32, 5, input_shape=(28,28,1)))
+    model.add(LeakyReLU(0.2))
+    model.add(Dropout(0.4))
+
+    # Secondo blocco di convoluzione
+    model.add(Conv2D(64, 5))
+    model.add(LeakyReLU(0.2))
+    model.add(Dropout(0.4))
+
+    # Terzo blocco di convoluzione
+    model.add(Conv2D(128, 5))
+    model.add(LeakyReLU(0.2))
+    model.add(Dropout(0.4))
+
+    # Quarto blocco di convoluzione
+    model.add(Conv2D(256, 5))
+    model.add(LeakyReLU(0.2))
+    model.add(Dropout(0.4))
+
+    # Flatten + Dense di output
+    model.add(Flatten())
+    model.add(Dropout(0.4))
+    model.add(Dense(1, activation='sigmoid'))
+
+    return model
