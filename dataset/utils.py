@@ -10,7 +10,7 @@ def scale_images(data):
     return image
 
 
-def crea_gif(lista_immagini, nome_output="animazione.gif", durata=500, loop=0):
+def crea_gif(lista_immagini, nome_output="animazione.gif", durata=6, loop=0):
     """
     Crea una GIF a partire da una lista di immagini.
 

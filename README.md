@@ -4,60 +4,57 @@
   <img src="immagine.jpg" alt="Descrizione dell'immagine" width="310" height="300">
 </div>
 
-## Introduction
-
-This project focuses on implementing a Generative Adversarial Network (GAN) to generate realistic clothing items using the Fashion MNIST dataset. The GAN aims to learn the underlying patterns of the dataset and create new, visually appealing examples of clothing items such as shirts, shoes, and dresses.
-
----
-
-## Objectives
-
-- Develop and train a GAN to generate high-quality clothing items.
-- Utilize the Fashion MNIST dataset as a foundation for training the model.
-- Leverage TensorFlow and other tools to streamline the development and visualization process.
+## Introduzione
+FabriGAN è un progetto che utilizza una Generative Adversarial Network (GAN) per generare immagini realistiche di capi di abbigliamento basate sul dataset Fashion MNIST.
 
 ---
 
-## Installation
+## Obiettivi
+- Creare una GAN per generare immagini realistiche di capi di abbigliamento.
+- Utilizzare il dataset Fashion MNIST per l’addestramento.
+- Sfruttare TensorFlow per il training e la visualizzazione dei risultati.
 
-To get started, follow the steps below:
+---
 
-### 1. Install Dependencies
+## Installazione
 
-Install the required dependencies by running the following command:
+Per iniziare, segui questi passaggi:
+
+### 1. Installazione delle dipendenze
+
+Installa le dipendenze richieste eseguendo il comando seguente:
 
 ```bash
 pip install -r requirements.txt
-The requirements.txt file includes:
 ```
+
+Il file requirements.txt include:
+
 TensorFlow
 Matplotlib
-Other necessary libraries
-2. Clone the Repository
-Clone this repository to your local machine:
+Altre librerie necessarie
+2. Clona il repository
+Clona questo repository sulla tua macchina locale:
 
-bash
-Copia
-Modifica
+```bash
 git clone https://github.com/your-repository-url.git
 cd your-repository-name
-3. Set Up Your Environment
-Ensure you have the necessary tools installed:
+```
 
-IDE: PyCharm (recommended)
-Training Environment: Google Colab for GPU support
-4. Run the Training Script
+3. Configura l'ambiente
+Assicurati di avere gli strumenti necessari installati:
 
-
-
-Navigate to the dataset/ directory and execute the training script:
+- IDE consigliato: PyCharm
+- Ambiente di training: Google Colab (per supporto GPU)
+4. Esegui lo script di training
+Naviga nella directory models/ ed esegui lo script di training:
 
 ```bash
 python model.py
 ```
-Dataset
-Fashion MNIST
-The Fashion MNIST dataset is used as the foundation for training the GAN. It contains 70,000 grayscale images of 28x28 pixels, categorized into 10 classes:
+
+## Dataset: Fashion MNIST
+Il dataset Fashion MNIST è utilizzato come base per l'addestramento della GAN. Contiene 70.000 immagini in scala di grigi di 28x28 pixel, suddivise in 10 classi:
 
 - T-shirts/tops
 - Trousers
@@ -70,31 +67,37 @@ The Fashion MNIST dataset is used as the foundation for training the GAN. It con
 - Bags
 - Ankle boots
 
-The dataset is preloaded in TensorFlow, making it easy to integrate into the pipeline.
 
-### Technologies and Tools
-TensorFlow: For building and training the GAN.
-Matplotlib: For visualizing the generated clothing items and model performance.
-Google Colab: For training the GAN using GPU acceleration.
-PyCharm: As the primary IDE for local development.
+Il dataset è pre-caricato in TensorFlow, facilitando l'integrazione nella pipeline.
 
-### Project Structure
-The project is organized as follows:
+## Tecnologie e Strumenti
+TensorFlow: Per la costruzione e l'addestramento della GAN.
+Matplotlib: Per visualizzare gli elementi di abbigliamento generati e le prestazioni del modello.
+Google Colab: Per l'addestramento della GAN utilizzando l'accelerazione GPU.
+PyCharm: IDE principale per lo sviluppo locale.
+Struttura del Progetto
+La struttura del progetto è organizzata come segue:
+
 ```bash
 ├── dataset
-│   ├── model.py        # Contains the GAN implementation and training script
-├── requirements.txt    # List of dependencies
-├── README.md           # Project documentation
+│   ├── dataset.py       # Importazione del dataset e analisi delle immagini
+│   ├── utils.py         # Operazioni sulle immagini e creazione di GIF per le epoche
+├── models
+│   ├── models.py        # Definizione del discriminatore, generatore e CNN
+│   ├── model.py         # Definizione della GAN e script di training
+├── evaluation
+│   ├── cnn.py           # Addestramento e valutazione della GAN con CNN
+│   ├── evaluation.py    # Valutazione della GAN tramite metrica FID
+├── monitoring
+│   ├── callback.py      # Funzioni di callback per CNN e GAN
+├── output               # Risultati dell’addestramento della GAN
+│   ├── training#/     # Modelli salvati durante il training ogni 150 epoche
+├── requirements.txt      # Elenco delle dipendenze
+├── README.md            # Documentazione del progetto
 ```
-Ensure that all dependencies are installed as described in the Installation section.
-Execute the model.py script to train the GAN and generate new clothing items. 
+## Output del Training
+Dopo aver eseguito model.py, verranno generati i seguenti output:
 
-Outputs will be saved, it includes:
-1. model checkpoints during training every 150 epochs
-2. generated images every 25 epochs
-3. loss plots for the generator and discriminator
-
-
-
-License
-This project is licensed under the MIT License. See the LICENSE.md file for details.
+- Checkpoints del modello salvati ogni 150 epoche.
+- Immagini generate salvate ogni 25 epoche.
+- Grafici delle perdite per generatore e discriminatore.

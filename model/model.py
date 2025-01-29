@@ -1,9 +1,12 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+from keras.src.datasets.california_housing import load_data
 from keras.src.models import Model
 from keras.src.optimizers import Adam
 from keras.src.losses import BinaryCrossentropy
-from .models import build_discriminator, build_generator
+from tensorflow.python.keras.models import load_model
+from matplotlib import pyplot as plt
+from models import build_discriminator, build_generator
 from dataset.utils import scale_images, crea_gif
 import glob
 import os
@@ -167,4 +170,21 @@ def main():
 if __name__ == "__main__":
     #main()
 
-    crea_gif(glob.glob(os.path.join("../outputs/training2/images", 'generated_at_epoch_*.png')), durata=10)
+    # Carica il modello completo (FashionGAN)
+    loaded_gan = keras.models.load_model('../outputs/training2/models/model_final.keras',
+                                         custom_objects={'FashionGAN': FashionGAN})
+    # Ora puoi accedere al generator all’interno di loaded_gan
+    generator = loaded_gan.generator
+
+    generated_images = generator(tf.random.normal((25, 128, 1)), training=False)
+
+
+    fig, ax = plt.subplots(ncols=5, nrows=5, figsize=(40, 40))
+    for i in range(5):
+        for j in range(5):
+            ax[i, j].imshow(generated_images[i*5+j])
+            ax[i, j].axis('off')
+
+    plt.show()
+
+    #crea_gif(glob.glob(os.path.join("../outputs/training2/images", 'generated_at_epoch_*.png')), durata=10)

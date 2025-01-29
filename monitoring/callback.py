@@ -49,7 +49,7 @@ class ModelMonitor(Callback):
             self.save_images(epoch + 1)
 
         # Salva il modello ogni 5 epoche
-        if (epoch + 1) % 5 == 0:
+        if (epoch + 1) % 150 == 0:
             self.save_model(epoch + 1)
 
     def on_train_end(self, logs=None):
